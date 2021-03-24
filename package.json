@@ -1,0 +1,19 @@
+{
+  "name": "family_tree_backend",
+  "version": "1.0.0",
+  "description": "Backend for the family tree project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acomanzo/family_tree_backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/acomanzo/family_tree_backend/issues"
+  },
+  "homepage": "https://github.com/acomanzo/family_tree_backend#readme"
+}
