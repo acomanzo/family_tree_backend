@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/acomanzo/family_tree_backend/issues"
   },
-  "homepage": "https://github.com/acomanzo/family_tree_backend#readme"
+  "homepage": "https://github.com/acomanzo/family_tree_backend#readme",
+  "dependencies": {
+    "mssql": "^6.3.1"
+  }
 }
