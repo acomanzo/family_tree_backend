@@ -1,23 +1,11 @@
-import express from 'express';
-import mssql from 'mssql';
-import config from './config.json';
+//import express from 'express';
+//import familyMemberRoutes from './routes/familyMemberRoutes.js';
+const express = require('express');
+const familyMemberRoutes = require('./routes/familyMemberRoutes.js');
 
 const app = express();
 
-const port = process.env.PORT || 3000;
-
-app.get('/', (req, res) => {
-
-    mssql.connect(config,  (err) => {
-        if (err) {
-            console.log(err);
-        }
-
-        const request = new mssql.Request();
-
-        request.query('SELECT * FROM ')
-    })
-})
+const PORT = process.env.PORT || 3000;
 
 app.use('/familymember', familyMemberRoutes);
 
