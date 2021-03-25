@@ -1,6 +1,7 @@
 {
   "name": "family_tree_backend",
   "version": "1.0.0",
+  "type": "commonjs",
   "description": "Backend for the family tree project",
   "main": "index.js",
   "scripts": {
