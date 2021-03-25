@@ -13,14 +13,11 @@ const ancestor_descendant_index = async (req, res) => {
 };
 
 const ancestor_descendant_create = async (req, res) => {
-    console.log('here');
     const ancestorId = req.query.ancestorId;
     const descendantId = req.query.descendantId;
     const depth = req.query.depth;
-    console.log(`${ancestorId}, ${descendantId}, ${depth}`);
     try {
         let pool = await sql.connect(config);
-        console.log('here');
         const result = await pool.request()
             .input('ancestor_id', sql.Int, ancestorId)
             .input('descendant_id', sql.Int, descendantId)
@@ -29,7 +26,6 @@ const ancestor_descendant_create = async (req, res) => {
         
         // const result = sql.query`INSERT INTO AncestorDescendant (AncestorId, DescendantId, Depth) VALUES (${ancestorId}, ${descendantId}, ${depth}); SELECT SCOPE_IDENTITY() AS AncestorDescendantId');`;
         
-        console.log('here');
         res.send(result);
     } catch (err) {
         // error checks
