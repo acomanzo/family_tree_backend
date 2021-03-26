@@ -5,6 +5,8 @@ const contactAddressRoutes = require('./routes/contactAddressRoutes.js');
 const cityRoutes = require('./routes/cityRoutes.js');
 const stateRoutes = require('./routes/stateRoutes.js');
 const zipcodeRoutes = require('./routes/zipcodeRoutes.js');
+const diagnosisRoutes = require('./routes/diagnosisRoutes.js');
+const medicalHistoryRoutes = require('./routes/medicalHistoryRoutes.js');
 
 const app = express();
 
@@ -21,6 +23,10 @@ app.use('/city', cityRoutes);
 app.use ('/state', stateRoutes);
 
 app.use('/zipcode', zipcodeRoutes);
+
+app.use('/diagnosis', diagnosisRoutes);
+
+app.use('/medicalhistory', medicalHistoryRoutes);
 
 app.use((req, res) => {
     res.status(404).send("404");
