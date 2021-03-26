@@ -19,6 +19,7 @@ const contact_address_create = async (req, res) => {
     const cityId = req.query.cityId;
     const stateId = req.query.stateId;
     const zipcodeId = req.query.zipcodeId;
+    const contactInformationId = req.query.contactInformationId;
 
     try {
         let pool = await sql.connect(config);
@@ -29,7 +30,8 @@ const contact_address_create = async (req, res) => {
             .input('city_id', sql.Int, cityId)
             .input('state_id', sql.Int, stateId)
             .input('zipcode_id', sql.Int, zipcodeId)
-            .query('INSERT INTO ContactAddress (StreetName, HouseNumber, Extra, CityId, StateId, ZipcodeId) VALUES (@street_name, @house_number, @extra, @city_id, @state_id, @zipcode_id); SELECT SCOPE_IDENTITY() AS ContactAddressId');
+            .input('contact_information_id', sql.Int, contactInformationId)
+            .query('INSERT INTO ContactAddress (StreetName, HouseNumber, Extra, CityId, StateId, ZipcodeId, ContactInformationId) VALUES (@street_name, @house_number, @extra, @city_id, @state_id, @zipcode_id, @contact_information_id); SELECT SCOPE_IDENTITY() AS ContactAddressId');
         
         res.send(result);
     } catch (err) {
@@ -62,9 +64,10 @@ const contact_address_update = async (req, res) => {
     const cityId = req.query.cityId;
     const stateId = req.query.stateId;
     const zipcodeId = req.query.zipcodeId;
+    const contactInformationId = req.query.contactInformationId;
 
     sql.connect(config).then(() => {
-        return sql.query`UPDATE ContactAddress SET StreetName = ${streetName}, HouseNumber = ${houseNumber}, Extra = ${extra}, CityId = ${cityId}, StateId = ${stateId}, ZipcodeId = ${zipcodeId} WHERE ContactAddressId = ${contactAddressId}`;
+        return sql.query`UPDATE ContactAddress SET StreetName = ${streetName}, HouseNumber = ${houseNumber}, Extra = ${extra}, CityId = ${cityId}, StateId = ${stateId}, ZipcodeId = ${zipcodeId}, ContactInformationId = ${contactInformationId} WHERE ContactAddressId = ${contactAddressId}`;
     }).then(result => {
         console.log(result);
         res.send(result);
