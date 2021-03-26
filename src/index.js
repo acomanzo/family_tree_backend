@@ -8,6 +8,8 @@ const zipcodeRoutes = require('./routes/zipcodeRoutes.js');
 const diagnosisRoutes = require('./routes/diagnosisRoutes.js');
 const medicalHistoryRoutes = require('./routes/medicalHistoryRoutes.js');
 const emailRoutes = require('./routes/emailRoutes.js');
+const contactInformationRoutes = require('./routes/contactInformationRoutes.js');
+const phoneNumberRoutes = require('./routes/phoneNumberRoutes.js');
 
 const app = express();
 
@@ -30,6 +32,10 @@ app.use('/diagnosis', diagnosisRoutes);
 app.use('/medicalhistory', medicalHistoryRoutes);
 
 app.use('/email', emailRoutes);
+
+app.use('/contactinformation', contactInformationRoutes);
+
+app.use('/phonenumber', phoneNumberRoutes);
 
 app.use((req, res) => {
     res.status(404).send("404");
