@@ -1,3 +1,4 @@
+const { query } = require('express');
 const sql = require('mssql');
 const config = require('../../config.json');
 const FamilyMember = require('../models/FamilyMember.js');
@@ -10,27 +11,46 @@ const family_member_index = async (req, res) => {
         res.send(result);
     } catch (err) {
         // error checks
+        console.log(err);
+        res.send(err);
     }
 };
 
 const family_member_create = async (req, res) => {
+    // const firstName = req.query.firstName;
+    // const lastName = req.query.lastName;
+    // const age = req.query.age;
+    // const genderId = req.query.genderId;
+
+    // if (firstName === undefined || lastName === undefined || age === undefined || genderId === undefined) {
+    //     let errorCode = 400;
+    //     res.send(errorCode, {status: errorCode, message: 'bad query parameters'});
+    // } 
+
     const firstName = req.query.firstName;
     const lastName = req.query.lastName;
-    const age = req.query.age;
-    const genderId = req.query.genderId;
+    const birthDate = req.query.birthDate;
+    const gender = req.query.gender;
+
+    if (firstName === undefined || lastName === undefined || birthDate === undefined || gender === undefined) {
+        let errorCode = 400;
+        res.send(errorCode, {status: errorCode, message: 'bad query parameters'});
+    } 
 
     try {
         let pool = await sql.connect(config);
         const result = await pool.request()
             .input('first_name', sql.VarChar, firstName)
             .input('last_name', sql.VarChar, lastName)
-            .input('age', sql.Int, age)
-            .input('gender_id', sql.Int, genderId)
-            .query('INSERT INTO FamilyMember (FirstName, LastName, Age, GenderId) VALUES (@first_name, @last_name, @age, @gender_id); SELECT SCOPE_IDENTITY() AS FamilyMemberId');
+            .input('birth_date', sql.VarChar, birthDate)
+            .input('gender', sql.VarChar, gender)
+            .query('INSERT INTO FamilyMember (FirstName, LastName, BirthDate, Gender) VALUES (@first_name, @last_name, @birth_date, @gender); SELECT SCOPE_IDENTITY() AS FamilyMemberId');
         
         res.send(result);
     } catch (err) {
         // error checks
+        console.log(err);
+        res.send(err);
     }
 };
 
@@ -47,6 +67,8 @@ const family_member_delete = async (req, res) => {
         res.send(result);
     } catch (err) {
         // error checks
+        console.log(err);
+        res.send(err);
     }
 };
 
@@ -55,16 +77,18 @@ const family_member_update = async (req, res) => {
 
     const firstName = req.query.firstName;
     const lastName = req.query.lastName;
-    const age = req.query.age;
-    const genderId = req.query.genderId;
+    const birthDate = req.query.birthDate;
+    const gender = req.query.gender;
 
     sql.connect(config).then(() => {
-        return sql.query`UPDATE FamilyMember SET FirstName = ${firstName}, LastName = ${lastName}, Age = ${age}, GenderId = ${genderId} WHERE FamilyMemberId = ${familyMemberId}`;
+        return sql.query`UPDATE FamilyMember SET FirstName = ${firstName}, LastName = ${lastName}, BirthDate = ${birthDate}, Gender = ${gender} WHERE FamilyMemberId = ${familyMemberId}`;
     }).then(result => {
         console.log(result);
         res.send(result);
     }).catch(err => {
         // error checks
+        console.log(err);
+        res.send(err);
     });
 }
 
