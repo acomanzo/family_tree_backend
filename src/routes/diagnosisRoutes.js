@@ -7,7 +7,7 @@ router.get('/', diagnosisController.diagnosis_index);
 
 router.post('/', diagnosisController.diagnosis_create);
 
-// router.delete('/:id', diagnosisController.diagnosis_delete);
+router.delete('/:id', diagnosisController.diagnosis_delete);
 
 // router.patch('/:id', diagnosisController.diagnosis_update);
 
