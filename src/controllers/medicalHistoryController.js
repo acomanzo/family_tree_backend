@@ -26,19 +26,38 @@ const medical_history_index_by_family_member = async (req, res) => {
 }
 
 const medical_history_create = async (req, res) => {
+    // const dateDiagnosed = req.query.dateDiagnosed;
+    // const note = req.query.note;
+    // const diagnosisId = req.query.diagnosisId;
+    // const familyMemberId = req.query.familyMemberId;
+
+    // try {
+    //     let pool = await sql.connect(config);
+    //     const result = await pool.request()
+    //         .input('date_diagnosed', sql.Int, dateDiagnosed)
+    //         .input('note', sql.VarChar, note)
+    //         .input('diagnosis_id', sql.Int, diagnosisId)
+    //         .input('family_member_id', sql.Int, familyMemberId)
+    //         .query('INSERT INTO MedicalHistory (DateDiagnosed, Note, DiagnosisId, FamilyMemberId) VALUES (@date_diagnosed, @note, @diagnosis_id, @family_member_id); SELECT SCOPE_IDENTITY() AS MedicalHistoryId');
+        
+    //     res.send(result);
+    // } catch (err) {
+    //     // error checks
+    // }
+
     const dateDiagnosed = req.query.dateDiagnosed;
     const note = req.query.note;
-    const diagnosisId = req.query.diagnosisId;
+    const diagnosis = req.query.diagnosis;
     const familyMemberId = req.query.familyMemberId;
 
     try {
         let pool = await sql.connect(config);
         const result = await pool.request()
-            .input('date_diagnosed', sql.Int, dateDiagnosed)
+            .input('date_diagnosed', sql.VarChar, dateDiagnosed)
             .input('note', sql.VarChar, note)
-            .input('diagnosis_id', sql.Int, diagnosisId)
+            .input('diagnosis', sql.VarChar, diagnosis)
             .input('family_member_id', sql.Int, familyMemberId)
-            .query('INSERT INTO MedicalHistory (DateDiagnosed, Note, DiagnosisId, FamilyMemberId) VALUES (@date_diagnosed, @note, @diagnosis_id, @family_member_id); SELECT SCOPE_IDENTITY() AS MedicalHistoryId');
+            .query('INSERT INTO MedicalHistory (DateDiagnosed, Note, Diagnosis, FamilyMemberId) VALUES (@date_diagnosed, @note, @diagnosis, @family_member_id); SELECT SCOPE_IDENTITY() AS MedicalHistoryId');
         
         res.send(result);
     } catch (err) {
