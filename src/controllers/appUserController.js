@@ -15,7 +15,6 @@ const app_user_index = async (req, res) => {
 const app_user_create = async (req, res) => {
     const email = req.query.email;
     const userPassword = req.query.userPassword;
-    const timeCreated = Date.now();
 
     if (email === undefined || userPassword === undefined) {
         let errorCode = 400;
@@ -27,8 +26,7 @@ const app_user_create = async (req, res) => {
         const result = await pool.request()
             .input('email', sql.VarChar, email)
             .input('user_password', sql.VarChar, userPassword)
-            .input('time_created', sql.VarChar, timeCreated)
-            .query('INSERT INTO AppUser (Email, UserPassword, TimeCreated) VALUES (@email, @user_password, @time_created); SELECT SCOPE_IDENTITY() AS AppUserId');
+            .query('INSERT INTO AppUser (Email, UserPassword) VALUES (@email, @user_password); SELECT SCOPE_IDENTITY() AS AppUserId');
         
         res.send(result);
     } catch (err) {
