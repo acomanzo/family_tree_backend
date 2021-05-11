@@ -2,10 +2,21 @@ const sql = require('mssql');
 const config = require('../../config.json');
 
 const family_tree_index = async (req, res) => {
+    const appUserId = req.query.appUserId;
     try {
-        await sql.connect(config);
-        const result = await sql.query('SELECT * FROM FamilyTree');
-        res.send(result);
+        if (appUserId !== undefined) {
+            let pool = await sql.connect(config);
+            const result = await pool.request()
+                .input('app_user_id', sql.Int, appUserId)
+                .query('SELECT * FROM FamilyTree WHERE AppUserId = @app_user_id;');
+        
+            res.send(result);
+        } else {
+            await sql.connect(config);
+            const result = await sql.query('SELECT * FROM FamilyTree');
+            res.send(result);
+        }
+        
     } catch (err) {
         // error checks
         res.send(err);
@@ -14,8 +25,9 @@ const family_tree_index = async (req, res) => {
 
 const family_tree_create = async (req, res) => {
     const appUserId = req.query.appUserId;
+    const treeName = req.query.treeName;
 
-    if (appUserId === undefined) {
+    if (appUserId === undefined || treeName === undefined) {
         let errorCode = 400;
         res.send(errorCode, {status: errorCode, message: 'bad query parameters'});
     } 
@@ -24,7 +36,8 @@ const family_tree_create = async (req, res) => {
         let pool = await sql.connect(config);
         const result = await pool.request()
             .input('app_user_id', sql.Int, appUserId)
-            .query('INSERT INTO FamilyTree (AppUserId) VALUES (@app_user_id); SELECT SCOPE_IDENTITY() AS FamilyTreeId');
+            .input('tree_name', sql.VarChar, treeName)
+            .query('INSERT INTO FamilyTree (AppUserId, TreeName) VALUES (@app_user_id, @tree_name); SELECT SCOPE_IDENTITY() AS FamilyTreeId');
         
         res.send(result);
     } catch (err) {
