@@ -10,6 +10,8 @@ const medicalHistoryRoutes = require('./routes/medicalHistoryRoutes.js');
 const emailRoutes = require('./routes/emailRoutes.js');
 const contactInformationRoutes = require('./routes/contactInformationRoutes.js');
 const phoneNumberRoutes = require('./routes/phoneNumberRoutes.js');
+const familyTreeRoutes = require('./routes/familyTreeRoutes');
+const appUserRoutes = require('./routes/appUserRoutes.js');
 
 const app = express();
 
@@ -36,6 +38,10 @@ app.use('/email', emailRoutes);
 app.use('/contactinformation', contactInformationRoutes);
 
 app.use('/phonenumber', phoneNumberRoutes);
+
+app.use('/familytree', familyTreeRoutes);
+
+app.use('/appuser', appUserRoutes);
 
 app.use((req, res) => {
     res.status(404).send("404");

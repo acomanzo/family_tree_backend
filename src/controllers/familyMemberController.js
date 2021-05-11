@@ -31,8 +31,9 @@ const family_member_create = async (req, res) => {
     const lastName = req.query.lastName;
     const birthDate = req.query.birthDate;
     const gender = req.query.gender;
+    const familyTreeId = req.query.familyTreeId;
 
-    if (firstName === undefined || lastName === undefined || birthDate === undefined || gender === undefined) {
+    if (firstName === undefined || lastName === undefined || birthDate === undefined || gender === undefined || familyTreeId === undefined) {
         let errorCode = 400;
         res.send(errorCode, {status: errorCode, message: 'bad query parameters'});
     } 
@@ -44,7 +45,8 @@ const family_member_create = async (req, res) => {
             .input('last_name', sql.VarChar, lastName)
             .input('birth_date', sql.VarChar, birthDate)
             .input('gender', sql.VarChar, gender)
-            .query('INSERT INTO FamilyMember (FirstName, LastName, BirthDate, Gender) VALUES (@first_name, @last_name, @birth_date, @gender); SELECT SCOPE_IDENTITY() AS FamilyMemberId');
+            .input('family_tree_id', sql.Int, familyTreeId)
+            .query('INSERT INTO FamilyMember (FirstName, LastName, BirthDate, Gender, FamilyTreeId) VALUES (@first_name, @last_name, @birth_date, @gender, @family_tree_id); SELECT SCOPE_IDENTITY() AS FamilyMemberId');
         
         res.send(result);
     } catch (err) {

@@ -4,7 +4,7 @@ CREATE TABLE AppUser (
     AppUserId INT NOT NULL IDENTITY PRIMARY KEY, 
     Email VARCHAR(50) NOT NULL, 
     UserPassword VARCHAR(50) NOT NULL, 
-    TimeCreated INT NOT NULL 
+    TimeCreated VARCHAR(50) NOT NULL 
 );
 
 -- CREATE TABLE Gender(
@@ -12,14 +12,20 @@ CREATE TABLE AppUser (
 --     Label VARCHAR(50) NOT NULL 
 -- );
 
+CREATE TABLE FamilyTree(
+    FamilyTreeId INT NOT NULL IDENTITY PRIMARY KEY,
+    AppUserId INT NOT NULL FOREIGN KEY REFERENCES AppUser(AppUserId)
+)
+
 CREATE TABLE FamilyMember(
     FamilyMemberId INT NOT NULL IDENTITY PRIMARY KEY, 
     FirstName VARCHAR(50) NOT NULL, 
     LastName VARCHAR(50) NOT NULL, 
     -- Age INT NULL, 
     BirthDate VARCHAR(20) NULL,
-    Gender VARCHAR(50) NULL
+    Gender VARCHAR(50) NULL,
     -- GenderId INT NULL FOREIGN KEY REFERENCES Gender(GenderId) 
+    FamilyTreeId INT NOT NULL FOREIGN KEY REFERENCES FamilyTree(FamilyTreeId)
 );
 
 -- CREATE TABLE Diagnosis(
