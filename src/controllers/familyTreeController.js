@@ -37,7 +37,7 @@ const family_tree_create = async (req, res) => {
         const result = await pool.request()
             .input('app_user_id', sql.Int, appUserId)
             .input('tree_name', sql.VarChar, treeName)
-            .query('INSERT INTO FamilyTree (AppUserId, TreeName) VALUES (@app_user_id, @tree_name); SELECT SCOPE_IDENTITY() AS FamilyTreeId');
+            .query('INSERT INTO FamilyTree (AppUserId, TreeName) OUTPUT INSERTED.* VALUES (@app_user_id, @tree_name); SELECT SCOPE_IDENTITY() AS FamilyTreeId');
         
         res.send(result);
     } catch (err) {

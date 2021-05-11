@@ -46,7 +46,7 @@ const family_member_create = async (req, res) => {
             .input('birth_date', sql.VarChar, birthDate)
             .input('gender', sql.VarChar, gender)
             .input('family_tree_id', sql.Int, familyTreeId)
-            .query('INSERT INTO FamilyMember (FirstName, LastName, BirthDate, Gender, FamilyTreeId) VALUES (@first_name, @last_name, @birth_date, @gender, @family_tree_id); SELECT SCOPE_IDENTITY() AS FamilyMemberId');
+            .query('INSERT INTO FamilyMember (FirstName, LastName, BirthDate, Gender, FamilyTreeId) OUTPUT INSERTED.* VALUES (@first_name, @last_name, @birth_date, @gender, @family_tree_id); SELECT SCOPE_IDENTITY() AS FamilyMemberId');
         
         res.send(result);
     } catch (err) {

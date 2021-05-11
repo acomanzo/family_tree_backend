@@ -21,7 +21,7 @@ const email_create = async (req, res) => {
         const result = await pool.request()
             .input('email', sql.VarChar, email)
             .input('contact_information_id', sql.Int, contactInformationId)
-            .query('INSERT INTO Email (Email, ContactInformationId) VALUES (@email, @contact_information_id); SELECT SCOPE_IDENTITY() AS EmailId');
+            .query('INSERT INTO Email (Email, ContactInformationId) OUTPUT INSERTED.* VALUES (@email, @contact_information_id); SELECT SCOPE_IDENTITY() AS EmailId');
         
         res.send(result);
     } catch (err) {

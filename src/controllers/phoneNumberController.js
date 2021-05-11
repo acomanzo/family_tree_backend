@@ -21,7 +21,7 @@ const phone_number_create = async (req, res) => {
         const result = await pool.request()
             .input('phone_number', sql.VarChar, phoneNumber)
             .input('contact_information_id', sql.Int, contactInformationId)
-            .query('INSERT INTO PhoneNumber (PhoneNumber, ContactInformationId) VALUES (@phone_number, @contact_information_id); SELECT SCOPE_IDENTITY() AS PhoneNumberId');
+            .query('INSERT INTO PhoneNumber (PhoneNumber, ContactInformationId) OUTPUT INSERTED.* VALUES (@phone_number, @contact_information_id); SELECT SCOPE_IDENTITY() AS PhoneNumberId');
         
         res.send(result);
     } catch (err) {

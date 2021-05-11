@@ -26,7 +26,7 @@ const app_user_create = async (req, res) => {
         const result = await pool.request()
             .input('email', sql.VarChar, email)
             .input('user_password', sql.VarChar, userPassword)
-            .query('INSERT INTO AppUser (Email, UserPassword) VALUES (@email, @user_password); SELECT SCOPE_IDENTITY() AS AppUserId');
+            .query('INSERT INTO AppUser (Email, UserPassword) OUTPUT INSERTED.* VALUES (@email, @user_password);');
         
         res.send(result);
     } catch (err) {

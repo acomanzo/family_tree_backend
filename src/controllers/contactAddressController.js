@@ -43,7 +43,7 @@ const contact_address_create = async (req, res) => {
         .input('state', sql.VarChar, state)
         .input('zipcode', sql.VarChar, zipcode)
         .input('contact_information_id', sql.Int, contactInformationId)
-        .query('INSERT INTO ContactAddress (StreetName, HouseNumber, Extra, City, State, Zipcode, ContactInformationId) VALUES (@street_name, @house_number, @extra, @city, @state, @zipcode, @contact_information_id); SELECT SCOPE_IDENTITY() AS ContactAddressId');
+        .query('INSERT INTO ContactAddress (StreetName, HouseNumber, Extra, City, State, Zipcode, ContactInformationId) OUTPUT INSERTED.* VALUES (@street_name, @house_number, @extra, @city, @state, @zipcode, @contact_information_id); SELECT SCOPE_IDENTITY() AS ContactAddressId');
         
         res.send(result);
     } catch (err) {

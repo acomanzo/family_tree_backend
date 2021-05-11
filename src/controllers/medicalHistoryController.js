@@ -57,7 +57,7 @@ const medical_history_create = async (req, res) => {
             .input('note', sql.VarChar, note)
             .input('diagnosis', sql.VarChar, diagnosis)
             .input('family_member_id', sql.Int, familyMemberId)
-            .query('INSERT INTO MedicalHistory (DateDiagnosed, Note, Diagnosis, FamilyMemberId) VALUES (@date_diagnosed, @note, @diagnosis, @family_member_id); SELECT SCOPE_IDENTITY() AS MedicalHistoryId');
+            .query('INSERT INTO MedicalHistory (DateDiagnosed, Note, Diagnosis, FamilyMemberId) OUTPUT INSERTED.* VALUES (@date_diagnosed, @note, @diagnosis, @family_member_id); SELECT SCOPE_IDENTITY() AS MedicalHistoryId');
         
         res.send(result);
     } catch (err) {

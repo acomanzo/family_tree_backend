@@ -19,7 +19,7 @@ const contact_information_create = async (req, res) => {
         let pool = await sql.connect(config);
         const result = await pool.request()
             .input('family_member_id', sql.Int, familyMemberId)
-            .query('INSERT INTO ContactInformation (FamilyMemberId) VALUES (@family_member_id); SELECT SCOPE_IDENTITY() AS ContactInformationId');
+            .query('INSERT INTO ContactInformation (FamilyMemberId) OUTPUT INSERTED.* VALUES (@family_member_id); SELECT SCOPE_IDENTITY() AS ContactInformationId');
         
         res.send(result);
     } catch (err) {
