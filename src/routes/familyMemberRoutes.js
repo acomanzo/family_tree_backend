@@ -5,6 +5,8 @@ const router = express.Router();
 
 router.get('/', familyMemberController.family_member_index);
 
+router.get('/:id', familyMemberController.family_member_index_by_tree);
+
 router.post('/', familyMemberController.family_member_create);
 
 router.delete('/:id', familyMemberController.family_member_delete);

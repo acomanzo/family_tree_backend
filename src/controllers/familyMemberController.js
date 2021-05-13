@@ -1,7 +1,5 @@
-const { query } = require('express');
 const sql = require('mssql');
 const config = require('../../config.json');
-const FamilyMember = require('../models/FamilyMember.js');
 
 const family_member_index = async (req, res) => {
     try {
@@ -15,6 +13,21 @@ const family_member_index = async (req, res) => {
         res.send(err);
     }
 };
+
+const family_member_index_by_tree = async (req, res) => {
+    const familyTreeId = req.params.id;
+    try {
+        let pool = await sql.connect(config);
+        const result = await pool.request()
+            .input('family_tree_id', sql.Int, familyTreeId)
+            .query('SELECT * FROM FamilyMember WHERE FamilyTreeId = @family_tree_id;');
+        // const result = await sql.query('SELECT * FROM FamilyMember WHERE FamilyTreeId = @family_tree_id;');
+        res.send(result);
+    } catch (err) {
+        // error checks
+        res.send(err);
+    }
+}
 
 const family_member_create = async (req, res) => {
     // const firstName = req.query.firstName;
@@ -96,6 +109,7 @@ const family_member_update = async (req, res) => {
 
 module.exports = {
     family_member_index, 
+    family_member_index_by_tree,
     family_member_create, 
     family_member_delete,
     family_member_update
