@@ -203,3 +203,23 @@ BEGIN
         ON AncestorDescendant.AncestorDescendantId = d.AncestorDescendantId
 END 
 GO
+
+CREATE TABLE Share(
+    ShareId INT NOT NULL IDENTITY PRIMARY KEY, 
+    SharerId INT NOT NULL FOREIGN KEY REFERENCES AppUser(AppUserId), 
+    ShareeId INT NOT NULL FOREIGN KEY REFERENCES AppUser(AppUserId), 
+    FamilyTreeId INT NOT NULL FOREIGN KEY REFERENCES FamilyTree(FamilyTreeId),
+    CreatedAt DATETIME CONSTRAINT DF_Share_createdat DEFAULT GETDATE(),
+    UpdatedAt DATETIME CONSTRAINT DF_Share_updatedat DEFAULT GETDATE()
+);
+
+GO
+CREATE trigger trg_Share_update ON Share FOR UPDATE AS 
+BEGIN   
+    UPDATE Share 
+        SET UpdatedAt = GETDATE()
+        FROM Share INNER JOIN deleted d 
+        ON Share.ShareId = d.ShareId
+END 
+GO
+

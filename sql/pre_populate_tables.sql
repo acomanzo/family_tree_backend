@@ -48,3 +48,6 @@ INSERT INTO PhoneNumber (PhoneNumber, ContactInformationId) VALUES
 -- INSERT INTO ContactAddress (StreetName, HouseNumber, CityId, StateId, ZipcodeId, ContactInformationId) VALUES 
 --     ('Tamarack Lane', 17, 1, 1, 1, 1),
 --     ('Ash Tree Lane', 7, 1, 1, 1, 2);
+
+-- INSERT INTO Share (SharerId, ShareeId, FamilyTreeId) VALUES (3, 4, 4);
+-- DELETE FROM Share WHERE ShareId = 1;
