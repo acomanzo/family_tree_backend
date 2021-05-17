@@ -76,13 +76,19 @@ const family_member_delete = async (req, res) => {
         let pool = await sql.connect(config);
         const result = await pool.request()
             .input('family_member_id', sql.Int, familyMemberId)
-            .query('DELETE FROM FamilyMember WHERE FamilyMemberId = @family_member_id');
+            .query(
+                `DELETE FROM AncestorDescendant WHERE AncestorId = @family_member_id;
+                DELETE FROM AncestorDescendant WHERE DescendantId = @family_member_id;
+                DELETE FROM ContactInformation WHERE FamilyMemberId = @family_member_id;
+                DELETE FROM FamilyMember OUTPUT DELETED.* WHERE FamilyMemberId = @family_member_id;`
+            );
+        // const result = await pool.request()
+        //     .input('family_member_id', sql.Int, familyMemberId)
+        //     .query('DELETE FROM FamilyMember WHERE FamilyMemberId = @family_member_id');
         
-        console.log(result);
         res.send(result);
     } catch (err) {
         // error checks
-        console.log(err);
         res.send(err);
     }
 };
@@ -96,13 +102,12 @@ const family_member_update = async (req, res) => {
     const gender = req.query.gender;
 
     sql.connect(config).then(() => {
-        return sql.query`UPDATE FamilyMember SET FirstName = ${firstName}, LastName = ${lastName}, BirthDate = ${birthDate}, Gender = ${gender} WHERE FamilyMemberId = ${familyMemberId}`;
+        return sql.query`UPDATE FamilyMember SET FirstName = ${firstName}, LastName = ${lastName}, BirthDate = ${birthDate}, Gender = ${gender} WHERE FamilyMemberId = ${familyMemberId};
+                        SELECT * FROM FamilyMember WHERE FamilyMemberId = ${familyMemberId};`;
     }).then(result => {
-        console.log(result);
         res.send(result);
     }).catch(err => {
         // error checks
-        console.log(err);
         res.send(err);
     });
 }
