@@ -15,7 +15,7 @@ Find a free way to host this thing!
 - Programming Languages: Javascript, SQL
 - SQL Dialect: MS SQL Server 
 - Runtime: Node.js
-- Libraries: Express.js, 
+- Libraries: Express.js, node-mssql
 - Hosting: Docker
 ## Software Used
 - Visual Studio Code
