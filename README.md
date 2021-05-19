@@ -4,6 +4,8 @@ Backend for the family tree project. For more detailed information about the pro
 - To host the backend services for the [Family Tree Project](https://github.com/acomanzo/family_tree). 
 - To gain experience using Docker
 - To gain experience using Microsoft SQL Server 
+- To gain experience using Javascript and Node.js
+- To gain experience creating a REST API
 ## Setup
 ### Database 
 I have a Docker container that holds an image of sql server that's on localhost. 
