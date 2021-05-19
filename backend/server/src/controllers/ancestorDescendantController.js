@@ -23,9 +23,7 @@ const ancestor_descendant_create = async (req, res) => {
             .input('descendant_id', sql.Int, descendantId)
             .input('depth', sql.Int, depth)
             .query('INSERT INTO AncestorDescendant (AncestorId, DescendantId, Depth) OUTPUT INSERTED.* VALUES (@ancestor_id, @descendant_id, @depth);');
-        
-        // const result = sql.query`INSERT INTO AncestorDescendant (AncestorId, DescendantId, Depth) VALUES (${ancestorId}, ${descendantId}, ${depth}); SELECT SCOPE_IDENTITY() AS AncestorDescendantId');`;
-        
+                
         res.send(result);
     } catch (err) {
         // error checks

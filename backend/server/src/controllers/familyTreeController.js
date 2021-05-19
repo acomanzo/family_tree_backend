@@ -28,8 +28,7 @@ const family_tree_index = async (req, res) => {
                     FROM cte_share_family_tree WHERE ShareeId = @app_user_id
                     UNION 
                     SELECT * FROM FamilyTree WHERE AppUserId = @app_user_id;`
-                )
-                // .query('SELECT * FROM FamilyTree WHERE AppUserId = @app_user_id;');
+                );
         
             res.send(result);
         } else {

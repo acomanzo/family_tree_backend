@@ -16,9 +16,6 @@ const contact_address_create = async (req, res) => {
     const streetName = req.query.streetName;
     const houseNumber = req.query.houseNumber;
     const extra = req.query.extra;
-    // const cityId = req.query.cityId;
-    // const stateId = req.query.stateId;
-    // const zipcodeId = req.query.zipcodeId;
     const city = req.query.city;
     const state = req.query.state;
     const zipcode = req.query.zipcode;
@@ -26,15 +23,6 @@ const contact_address_create = async (req, res) => {
 
     try {
         let pool = await sql.connect(config);
-        // const result = await pool.request()
-        //     .input('street_name', sql.VarChar, streetName)
-        //     .input('house_number', sql.Int, houseNumber)
-        //     .input('extra', sql.VarChar, extra)
-        //     .input('city_id', sql.Int, cityId)
-        //     .input('state_id', sql.Int, stateId)
-        //     .input('zipcode_id', sql.Int, zipcodeId)
-        //     .input('contact_information_id', sql.Int, contactInformationId)
-        //     .query('INSERT INTO ContactAddress (StreetName, HouseNumber, Extra, CityId, StateId, ZipcodeId, ContactInformationId) VALUES (@street_name, @house_number, @extra, @city_id, @state_id, @zipcode_id, @contact_information_id); SELECT SCOPE_IDENTITY() AS ContactAddressId');
         const result = await pool.request()
         .input('street_name', sql.VarChar, streetName)
         .input('house_number', sql.Int, houseNumber)

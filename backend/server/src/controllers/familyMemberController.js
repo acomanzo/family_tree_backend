@@ -21,7 +21,6 @@ const family_member_index_by_tree = async (req, res) => {
         const result = await pool.request()
             .input('family_tree_id', sql.Int, familyTreeId)
             .query('SELECT * FROM FamilyMember WHERE FamilyTreeId = @family_tree_id;');
-        // const result = await sql.query('SELECT * FROM FamilyMember WHERE FamilyTreeId = @family_tree_id;');
         res.send(result);
     } catch (err) {
         // error checks
@@ -30,15 +29,6 @@ const family_member_index_by_tree = async (req, res) => {
 }
 
 const family_member_create = async (req, res) => {
-    // const firstName = req.query.firstName;
-    // const lastName = req.query.lastName;
-    // const age = req.query.age;
-    // const genderId = req.query.genderId;
-
-    // if (firstName === undefined || lastName === undefined || age === undefined || genderId === undefined) {
-    //     let errorCode = 400;
-    //     res.send(errorCode, {status: errorCode, message: 'bad query parameters'});
-    // } 
 
     const firstName = req.query.firstName;
     const lastName = req.query.lastName;
@@ -82,9 +72,6 @@ const family_member_delete = async (req, res) => {
                 DELETE FROM ContactInformation WHERE FamilyMemberId = @family_member_id;
                 DELETE FROM FamilyMember OUTPUT DELETED.* WHERE FamilyMemberId = @family_member_id;`
             );
-        // const result = await pool.request()
-        //     .input('family_member_id', sql.Int, familyMemberId)
-        //     .query('DELETE FROM FamilyMember WHERE FamilyMemberId = @family_member_id');
         
         res.send(result);
     } catch (err) {
