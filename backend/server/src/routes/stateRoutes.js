@@ -7,8 +7,4 @@ router.get('/', stateController.state_index);
 
 router.post('/', stateController.state_create);
 
-// router.delete('/:id', stateController.state_delete);
-
-// router.patch('/:id', stateController.state_update);
-
 module.exports = router;

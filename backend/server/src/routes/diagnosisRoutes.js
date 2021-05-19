@@ -9,6 +9,4 @@ router.post('/', diagnosisController.diagnosis_create);
 
 router.delete('/:id', diagnosisController.diagnosis_delete);
 
-// router.patch('/:id', diagnosisController.diagnosis_update);
-
 module.exports = router;

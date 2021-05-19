@@ -7,8 +7,4 @@ router.get('/', zipcodeController.zipcode_index);
 
 router.post('/', zipcodeController.zipcode_create);
 
-// router.delete('/:id', zipcodeController.zipcode_delete);
-
-// router.patch('/:id', zipcodeController.zipcode_update);
-
 module.exports = router;
